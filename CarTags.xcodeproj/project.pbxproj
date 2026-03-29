@@ -6,8 +6,16 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		476EB88A2F787AD600EE5689 /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 476EB8892F787AD600EE5689 /* GRDB */; };
+		47F9E9E92F787E1C00E7C4DE /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 47F9E9E82F787E1C00E7C4DE /* Localizable.xcstrings */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		476EB85D2F78752200EE5689 /* CarTags.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CarTags.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		476EB88B2F787B8300EE5689 /* CLAUDE.md */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLAUDE.md; sourceTree = "<group>"; };
+		47F9E9E82F787E1C00E7C4DE /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		47F9E9EA2F787F9800E7C4DE /* AGENTS.md */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AGENTS.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -23,6 +31,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				476EB88A2F787AD600EE5689 /* GRDB in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -32,6 +41,9 @@
 		476EB8542F78752200EE5689 = {
 			isa = PBXGroup;
 			children = (
+				47F9E9EA2F787F9800E7C4DE /* AGENTS.md */,
+				47F9E9E82F787E1C00E7C4DE /* Localizable.xcstrings */,
+				476EB88B2F787B8300EE5689 /* CLAUDE.md */,
 				476EB85F2F78752200EE5689 /* CarTags */,
 				476EB85E2F78752200EE5689 /* Products */,
 			);
@@ -65,6 +77,7 @@
 			);
 			name = CarTags;
 			packageProductDependencies = (
+				476EB8892F787AD600EE5689 /* GRDB */,
 			);
 			productName = CarTags;
 			productReference = 476EB85D2F78752200EE5689 /* CarTags.app */;
@@ -94,6 +107,9 @@
 			);
 			mainGroup = 476EB8542F78752200EE5689;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				476EB8882F787AD600EE5689 /* XCRemoteSwiftPackageReference "GRDB" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 476EB85E2F78752200EE5689 /* Products */;
 			projectDirPath = "";
@@ -109,6 +125,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				47F9E9E92F787E1C00E7C4DE /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -185,6 +202,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -242,6 +260,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -332,6 +351,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		476EB8882F787AD600EE5689 /* XCRemoteSwiftPackageReference "GRDB" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/groue/GRDB.swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		476EB8892F787AD600EE5689 /* GRDB */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 476EB8882F787AD600EE5689 /* XCRemoteSwiftPackageReference "GRDB" */;
+			productName = GRDB;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 476EB8552F78752200EE5689 /* Project object */;
 }

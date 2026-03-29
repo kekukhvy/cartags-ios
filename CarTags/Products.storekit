@@ -1,0 +1,80 @@
+{
+  "identifier" : "CarTagsProducts",
+  "nonConsumableProducts" : [
+    {
+      "displayPrice" : "12.00",
+      "familyShareable" : false,
+      "internalID" : "com.cartags.lifetime",
+      "localizations" : [
+        {
+          "description" : "Lifetime access to CarTags Pro",
+          "displayName" : "CarTags Pro Lifetime",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "com.cartags.lifetime",
+      "referenceName" : "CarTags Pro Lifetime",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "0",
+    "_developerTeamID" : "",
+    "_storeKitErrors" : [
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Load Products"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Purchase"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "Verification"
+      },
+      {
+        "current" : null,
+        "enabled" : false,
+        "name" : "App Store Sync"
+      }
+    ]
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "com.cartags.pro",
+      "localizations" : [],
+      "name" : "CarTags Pro",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [],
+          "codeOffers" : [],
+          "displayPrice" : "1.00",
+          "familyShareable" : false,
+          "groupNumber" : 1,
+          "internalID" : "com.cartags.monthly",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Monthly access to CarTags Pro",
+              "displayName" : "CarTags Pro Monthly",
+              "locale" : "en_US"
+            }
+          ],
+          "productID" : "com.cartags.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "CarTags Pro Monthly",
+          "subscriptionGroupID" : "com.cartags.pro",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 2,
+    "minor" : 0
+  }
+}

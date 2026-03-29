@@ -2,20 +2,34 @@
 //  ContentView.swift
 //  CarTags
 //
-//  Created by Vladyslav Kekukh on 28.03.26.
-//
 
 import SwiftUI
 
 struct ContentView: View {
+    #if DEBUG
+    @State private var showDebug = false
+    #endif
+
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView {
+            SearchView()
+                .tabItem {
+                    Label(String(localized: "search.title"), systemImage: "magnifyingglass")
+                }
+            BrowseView()
+                .tabItem {
+                    Label(String(localized: "browse.title"), systemImage: "globe")
+                }
         }
-        .padding()
+        #if DEBUG
+        .simultaneousGesture(
+            LongPressGesture(minimumDuration: 5)
+                .onEnded { _ in showDebug = true }
+        )
+        .sheet(isPresented: $showDebug) {
+            DebugView()
+        }
+        #endif
     }
 }
 

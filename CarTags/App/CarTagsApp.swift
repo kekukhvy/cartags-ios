@@ -2,8 +2,6 @@
 //  CarTagsApp.swift
 //  CarTags
 //
-//  Created by Vladyslav Kekukh on 28.03.26.
-//
 
 import SwiftUI
 
@@ -12,6 +10,9 @@ struct CarTagsApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .task {
+                    await StoreService.shared.checkEntitlements()
+                }
         }
     }
 }

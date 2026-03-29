@@ -1,0 +1,156 @@
+//
+//  SearchView.swift
+//  CarTags
+//
+
+import SwiftUI
+
+struct SearchView: View {
+    @State private var viewModel = SearchViewModel()
+    @State private var showCountryPicker = false
+
+    var body: some View {
+        NavigationStack {
+            VStack(spacing: 0) {
+                searchBar
+                resultsList
+            }
+            .navigationTitle(String(localized: "search.title"))
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(String(localized: "search.action")) { viewModel.search() }
+                        .bold()
+                        .disabled(viewModel.searchCode.isEmpty || viewModel.isLoading)
+                }
+            }
+            .alert(String(localized: "error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button(String(localized: "button.ok")) { viewModel.errorMessage = nil }
+            } message: {
+                Text(viewModel.errorMessage ?? "")
+            }
+            .sheet(isPresented: $viewModel.showPaywall) {
+                PaywallView()
+            }
+            .sheet(isPresented: $showCountryPicker) {
+                CountryPickerView()
+            }
+            .onAppear {
+                if StoreService.shared.selectedCountries.isEmpty && !StoreService.shared.isPremium {
+                    showCountryPicker = true
+                }
+            }
+        }
+    }
+
+    private var searchBar: some View {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundStyle(.secondary)
+            TextField(
+                String(localized: "search.placeholder"),
+                text: $viewModel.searchCode
+            )
+            .textInputAutocapitalization(.characters)
+            .autocorrectionDisabled()
+            .onSubmit { viewModel.search() }
+
+            if !viewModel.searchCode.isEmpty {
+                Button { viewModel.clear() } label: {
+                    Image(systemName: "xmark.circle.fill")
+                        .foregroundStyle(.secondary)
+                }
+            }
+        }
+        .padding(10)
+        .background(Color(.systemGray6), in: RoundedRectangle(cornerRadius: 10))
+        .padding()
+    }
+
+    @ViewBuilder
+    private var resultsList: some View {
+        if viewModel.isLoading {
+            Spacer()
+            ProgressView()
+            Spacer()
+        } else if viewModel.showRestrictedResult {
+            restrictedState
+        } else if viewModel.hasSearched && viewModel.results.isEmpty {
+            emptyState
+        } else if !viewModel.hasSearched {
+            placeholderState
+        } else {
+            SwiftUI.List(viewModel.results) { region in
+                RegionRow(region: region)
+            }
+            .listStyle(.plain)
+        }
+    }
+
+    private var restrictedState: some View {
+        VStack(spacing: 16) {
+            Spacer()
+            Image(systemName: "lock.circle")
+                .font(.system(size: 50))
+                .foregroundStyle(.secondary)
+            Text(String(localized: "search.restricted.title"))
+                .font(.headline)
+                .multilineTextAlignment(.center)
+            Text(String(localized: "search.restricted.message"))
+                .font(.subheadline)
+                .foregroundStyle(.secondary)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            Button(String(localized: "search.restricted.subscribe")) {
+                viewModel.showPaywall = true
+            }
+            .buttonStyle(.borderedProminent)
+            Spacer()
+        }
+    }
+
+    private var emptyState: some View {
+        VStack(spacing: 8) {
+            Spacer()
+            Image(systemName: "magnifyingglass")
+                .font(.system(size: 40))
+                .foregroundStyle(.secondary)
+            Text(String(format: String(localized: "search.no_results %@"), viewModel.searchCode))
+                .foregroundStyle(.secondary)
+            Spacer()
+        }
+    }
+
+    private var placeholderState: some View {
+        VStack(spacing: 8) {
+            Spacer()
+            Image(systemName: "car.rear.road.lane")
+                .font(.system(size: 50))
+                .foregroundStyle(.secondary)
+            Text(String(localized: "search.empty_prompt"))
+                .foregroundStyle(.secondary)
+            Spacer()
+        }
+    }
+}
+
+struct RegionRow: View {
+    let region: RegionResult
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Text(region.code)
+                    .font(.title2.bold())
+                Spacer()
+                Text(flagEmoji(for: region.countryCode))
+                    .font(.title2)
+            }
+            Text(region.regionName)
+                .font(.body)
+            Text(region.countryName)
+                .font(.caption)
+                .foregroundStyle(.secondary)
+        }
+        .padding(.vertical, 4)
+    }
+}
