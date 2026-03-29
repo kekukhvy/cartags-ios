@@ -1,5 +1,6 @@
 /* German */
 "browse.title" = "Durchsuchen";
+"button.close" = "Schließen";
 "button.done" = "Fertig";
 "button.ok" = "OK";
 "countries.picker.limit" = "Sie können bis zu 3 Länder auswählen";
@@ -17,6 +18,12 @@
 "search.restricted.message" = "Alle Länder freischalten und vollständige Ergebnisse sehen.";
 "search.restricted.subscribe" = "Freischalten";
 "search.restricted.title" = "Code in einem Land gefunden, das nicht in Ihrem Gratisplan ist";
+"map.no_location.message" = "Für diese Region sind keine Koordinaten gespeichert.";
+"map.no_location.title" = "Kein Standort verfügbar";
 "search.title" = "Suche";
+"settings.feedback" = "Feedback & Support";
 "settings.language.section" = "Sprache";
+"settings.rate" = "Im App Store bewerten";
+"settings.restore_purchases" = "Käufe wiederherstellen";
+"settings.share" = "App teilen";
 "settings.title" = "Einstellungen";

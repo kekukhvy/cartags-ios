@@ -1,5 +1,6 @@
 /* English */
 "browse.title" = "Browse";
+"button.close" = "Close";
 "button.done" = "Done";
 "button.ok" = "OK";
 "countries.picker.limit" = "You can select up to 3 countries";
@@ -17,6 +18,12 @@
 "search.restricted.message" = "Unlock all countries and see full results.";
 "search.restricted.subscribe" = "Unlock";
 "search.restricted.title" = "Code found in a country not in your free plan";
+"map.no_location.message" = "No coordinates are stored for this region.";
+"map.no_location.title" = "No Location Available";
 "search.title" = "Search";
+"settings.feedback" = "Feedback & support";
 "settings.language.section" = "Language";
+"settings.rate" = "Rate on the App Store";
+"settings.restore_purchases" = "Restore purchases";
+"settings.share" = "Share app";
 "settings.title" = "Settings";

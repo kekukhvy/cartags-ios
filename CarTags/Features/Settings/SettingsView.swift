@@ -4,12 +4,14 @@
 //
 
 import SwiftUI
+import StoreKit
 
 struct SettingsView: View {
     @State private var languageService = LanguageService.shared
-    #if DEBUG
-    @State private var isPremium = UserDefaults.standard.bool(forKey: "debug_premium")
-    #endif
+    @State private var storeService = StoreService.shared
+    @State private var isRestoring = false
+    @State private var errorMessage: String?
+    @State private var showShareSheet = false
 
     private let languages: [(code: String, label: String, flag: String)] = [
         ("en", "English", "🇬🇧"),
@@ -17,6 +19,9 @@ struct SettingsView: View {
         ("ru", "Русский", "🇷🇺"),
         ("uk", "Українська", "🇺🇦"),
     ]
+
+    private let appStoreURL = URL(string: "https://apps.apple.com/app/id0000000000")!
+    private let feedbackURL = URL(string: "mailto:support@cartags.app")!
 
     var body: some View {
         NavigationStack {
@@ -36,17 +41,61 @@ struct SettingsView: View {
                     }
                     .padding(.vertical, 4)
                 }
-                #if DEBUG
-                Section("Debug") {
-                    Toggle("Premium", isOn: $isPremium)
-                        .onChange(of: isPremium) { _, newValue in
-                            UserDefaults.standard.set(newValue, forKey: "debug_premium")
-                            StoreService.shared.isPremium = newValue
+
+                Section {
+                    Button {
+                        Task {
+                            isRestoring = true
+                            do {
+                                try await storeService.restorePurchases()
+                            } catch {
+                                errorMessage = error.localizedDescription
+                            }
+                            isRestoring = false
                         }
+                    } label: {
+                        Label(loc("settings.restore_purchases"), systemImage: "arrow.counterclockwise.circle")
+                    }
+                    .disabled(isRestoring)
+
+                    Button {
+                        UIApplication.shared.open(feedbackURL)
+                    } label: {
+                        Label(loc("settings.feedback"), systemImage: "message")
+                    }
+
+                    Button {
+                        UIApplication.shared.open(appStoreURL)
+                    } label: {
+                        Label(loc("settings.rate"), systemImage: "heart")
+                    }
+
+                    Button {
+                        showShareSheet = true
+                    } label: {
+                        Label(loc("settings.share"), systemImage: "square.and.arrow.up")
+                    }
                 }
-                #endif
             }
             .navigationTitle(loc("settings.title"))
+            .alert(loc("error.title"), isPresented: .constant(errorMessage != nil)) {
+                Button(loc("button.ok")) { errorMessage = nil }
+            } message: {
+                Text(errorMessage ?? "")
+            }
+            .sheet(isPresented: $showShareSheet) {
+                ShareSheet(items: [appStoreURL])
+            }
         }
     }
+}
+
+private struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }

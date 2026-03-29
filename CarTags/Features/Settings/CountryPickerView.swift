@@ -24,6 +24,7 @@ struct CountryPickerView: View {
                 }
             }
             .navigationTitle(loc("countries.picker.title"))
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(loc("button.done")) { dismiss() }

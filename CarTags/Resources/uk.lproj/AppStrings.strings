@@ -1,5 +1,6 @@
 /* Ukrainian */
 "browse.title" = "Перегляд";
+"button.close" = "Закрити";
 "button.done" = "Готово";
 "button.ok" = "ОК";
 "countries.picker.limit" = "Можна обрати не більше 3 країн";
@@ -17,6 +18,12 @@
 "search.restricted.message" = "Розблокуйте всі країни і дивіться повні результати.";
 "search.restricted.subscribe" = "Розблокувати";
 "search.restricted.title" = "Код знайдено в країні не з вашого безкоштовного плану";
+"map.no_location.message" = "Для цього регіону координати не збережені.";
+"map.no_location.title" = "Місцезнаходження недоступне";
 "search.title" = "Пошук";
+"settings.feedback" = "Відгук і підтримка";
 "settings.language.section" = "Мова";
+"settings.rate" = "Оцінити в App Store";
+"settings.restore_purchases" = "Відновити покупки";
+"settings.share" = "Поділитися додатком";
 "settings.title" = "Налаштування";

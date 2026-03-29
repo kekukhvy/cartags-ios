@@ -6,10 +6,6 @@
 import SwiftUI
 
 struct ContentView: View {
-    #if DEBUG
-    @State private var showDebug = false
-    #endif
-
     var body: some View {
         TabView {
             SearchView()
@@ -25,15 +21,6 @@ struct ContentView: View {
                     Label(loc("settings.title"), systemImage: "gearshape")
                 }
         }
-        #if DEBUG
-        .simultaneousGesture(
-            LongPressGesture(minimumDuration: 5)
-                .onEnded { _ in showDebug = true }
-        )
-        .sheet(isPresented: $showDebug) {
-            DebugView()
-        }
-        #endif
     }
 }
 

@@ -30,14 +30,20 @@ final class SearchViewModel {
                 var found = allFound
 
                 if !StoreService.shared.isPremium {
-                    found = allFound.filter {
-                        StoreService.shared.canSearch(countryCode: $0.countryCode)
+                    let inSelectedCountries = allFound.filter {
+                        StoreService.shared.selectedCountries.contains($0.countryCode)
                     }
-                    if !allFound.isEmpty && found.isEmpty {
+                    if !allFound.isEmpty && inSelectedCountries.isEmpty {
                         showRestrictedResult = true
                         isLoading = false
                         return
                     }
+                    if StoreService.shared.requestsToday >= StoreService.maxFreeRequestsPerDay {
+                        showRestrictedResult = true
+                        isLoading = false
+                        return
+                    }
+                    found = inSelectedCountries
                 }
 
                 StoreService.shared.recordRequest()

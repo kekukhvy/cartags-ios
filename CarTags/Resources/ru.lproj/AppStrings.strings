@@ -1,5 +1,6 @@
 /* Russian */
 "browse.title" = "Обзор";
+"button.close" = "Закрыть";
 "button.done" = "Готово";
 "button.ok" = "ОК";
 "countries.picker.limit" = "Можно выбрать не более 3 стран";
@@ -17,6 +18,12 @@
 "search.restricted.message" = "Разблокируйте все страны и смотрите полные результаты.";
 "search.restricted.subscribe" = "Разблокировать";
 "search.restricted.title" = "Код найден в стране не из вашего бесплатного плана";
+"map.no_location.message" = "Для этого региона координаты не сохранены.";
+"map.no_location.title" = "Местоположение недоступно";
 "search.title" = "Поиск";
+"settings.feedback" = "Обратная связь и поддержка";
 "settings.language.section" = "Язык";
+"settings.rate" = "Оценить в App Store";
+"settings.restore_purchases" = "Восстановить покупки";
+"settings.share" = "Поделиться приложением";
 "settings.title" = "Настройки";

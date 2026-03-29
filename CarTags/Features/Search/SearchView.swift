@@ -8,6 +8,7 @@ import SwiftUI
 struct SearchView: View {
     @State private var viewModel = SearchViewModel()
     @State private var showCountryPicker = false
+    @State private var selectedRegion: RegionResult?
 
     var body: some View {
         NavigationStack {
@@ -16,13 +17,6 @@ struct SearchView: View {
                 resultsList
             }
             .navigationTitle(loc("search.title"))
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(loc("search.action")) { viewModel.search() }
-                        .bold()
-                        .disabled(viewModel.searchCode.isEmpty || viewModel.isLoading)
-                }
-            }
             .alert(loc("error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
                 Button(loc("button.ok")) { viewModel.errorMessage = nil }
             } message: {
@@ -33,6 +27,9 @@ struct SearchView: View {
             }
             .sheet(isPresented: $showCountryPicker) {
                 CountryPickerView()
+            }
+            .sheet(item: $selectedRegion) { region in
+                RegionMapView(region: region)
             }
             .onAppear {
                 if StoreService.shared.selectedCountries.isEmpty && !StoreService.shared.isPremium {
@@ -57,6 +54,7 @@ struct SearchView: View {
                         Image(systemName: "xmark.circle.fill")
                             .foregroundStyle(.secondary)
                     }
+                    .buttonStyle(.plain)
                 }
             }
             .padding(10)
@@ -85,6 +83,8 @@ struct SearchView: View {
         } else {
             SwiftUI.List(viewModel.results) { region in
                 RegionRow(region: region)
+                    .contentShape(Rectangle())
+                    .onTapGesture { selectedRegion = region }
             }
             .listStyle(.plain)
         }
@@ -141,19 +141,27 @@ struct RegionRow: View {
     let region: RegionResult
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack {
+        HStack(alignment: .center, spacing: 12) {
+            Text(flagEmoji(for: region.countryCode))
+                .font(.largeTitle)
+
+            VStack(alignment: .leading, spacing: 4) {
                 Text(region.code)
                     .font(.title2.bold())
-                Spacer()
-                Text(flagEmoji(for: region.countryCode))
-                    .font(.title2)
+                Text(region.regionName)
+                    .font(.body)
+                Text(region.countryName)
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
             }
-            Text(region.regionName)
-                .font(.body)
-            Text(region.countryName)
-                .font(.caption)
-                .foregroundStyle(.secondary)
+
+            Spacer()
+
+            if region.lat != nil {
+                Image(systemName: "map")
+                    .font(.title2)
+                    .foregroundStyle(.secondary)
+            }
         }
         .padding(.vertical, 4)
     }
