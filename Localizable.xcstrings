@@ -78,17 +78,6 @@
         }
       }
     },
-    "paywall.monthly" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "€1 / month"
-          }
-        }
-      }
-    },
     "paywall.restore" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -128,7 +117,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Subscribe to unlock all countries and see full results."
+            "value" : "Unlock all countries and see full results."
           }
         }
       }
@@ -139,7 +128,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Subscribe"
+            "value" : "Unlock"
           }
         }
       }

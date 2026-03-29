@@ -43,36 +43,7 @@
       }
     ]
   },
-  "subscriptionGroups" : [
-    {
-      "id" : "com.cartags.pro",
-      "localizations" : [],
-      "name" : "CarTags Pro",
-      "subscriptions" : [
-        {
-          "adHocOffers" : [],
-          "codeOffers" : [],
-          "displayPrice" : "1.00",
-          "familyShareable" : false,
-          "groupNumber" : 1,
-          "internalID" : "com.cartags.monthly",
-          "introductoryOffer" : null,
-          "localizations" : [
-            {
-              "description" : "Monthly access to CarTags Pro",
-              "displayName" : "CarTags Pro Monthly",
-              "locale" : "en_US"
-            }
-          ],
-          "productID" : "com.cartags.monthly",
-          "recurringSubscriptionPeriod" : "P1M",
-          "referenceName" : "CarTags Pro Monthly",
-          "subscriptionGroupID" : "com.cartags.pro",
-          "type" : "RecurringSubscription"
-        }
-      ]
-    }
-  ],
+  "subscriptionGroups" : [],
   "version" : {
     "major" : 2,
     "minor" : 0

@@ -4,18 +4,17 @@
 //
 
 import Foundation
-import StoreKit
 import Observation
+import StoreKit
 
 @Observable
 final class StoreService {
     static let shared = StoreService()
 
-    static let monthlyID  = "com.cartags.monthly"
     static let lifetimeID = "com.cartags.lifetime"
 
     static let maxFreeCountries = 3
-    static let maxFreeRequestsPerDay = 100
+    static let maxFreeRequestsPerDay = 5
 
     private let defaults = UserDefaults.standard
 
@@ -23,7 +22,7 @@ final class StoreService {
     var isPremium: Bool {
         get {
             #if DEBUG
-            if UserDefaults.standard.bool(forKey: "debug_premium") { return true }
+                if UserDefaults.standard.bool(forKey: "debug_premium") { return true }
             #endif
             return _isPremium
         }
@@ -39,7 +38,8 @@ final class StoreService {
 
     func canSearch(countryCode: String) -> Bool {
         if isPremium { return true }
-        return selectedCountries.contains(countryCode) && requestsToday < StoreService.maxFreeRequestsPerDay
+        return selectedCountries.contains(countryCode)
+            && requestsToday < StoreService.maxFreeRequestsPerDay
     }
 
     func recordRequest() {
@@ -57,7 +57,9 @@ final class StoreService {
     }
 
     func addCountry(_ code: String) {
-        guard !selectedCountries.contains(code), selectedCountries.count < StoreService.maxFreeCountries else { return }
+        guard !selectedCountries.contains(code),
+            selectedCountries.count < StoreService.maxFreeCountries
+        else { return }
         selectedCountries.append(code)
         saveCountries()
     }
@@ -90,7 +92,7 @@ final class StoreService {
         var hasPremium = false
         for await result in Transaction.currentEntitlements {
             guard case .verified(let transaction) = result else { continue }
-            if transaction.productID == StoreService.monthlyID || transaction.productID == StoreService.lifetimeID {
+            if transaction.productID == StoreService.lifetimeID {
                 hasPremium = true
             }
         }
@@ -104,7 +106,8 @@ final class StoreService {
 
     private func loadSelectedCountries() {
         guard let data = defaults.data(forKey: "selected_countries"),
-              let decoded = try? JSONDecoder().decode([String].self, from: data) else {
+            let decoded = try? JSONDecoder().decode([String].self, from: data)
+        else {
             selectedCountries = []
             return
         }
@@ -128,16 +131,16 @@ final class StoreService {
     }
 
     #if DEBUG
-    func refreshRequestsTodayDebug() {
-        refreshRequestsToday()
-    }
+        func refreshRequestsTodayDebug() {
+            refreshRequestsToday()
+        }
 
-    func setRequestsTodayDebug(_ count: Int) {
-        requestsToday = count
-    }
+        func setRequestsTodayDebug(_ count: Int) {
+            requestsToday = count
+        }
 
-    func resetSelectedCountriesDebug() {
-        selectedCountries = []
-    }
+        func resetSelectedCountriesDebug() {
+            selectedCountries = []
+        }
     #endif
 }

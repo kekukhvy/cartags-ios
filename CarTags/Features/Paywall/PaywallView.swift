@@ -28,23 +28,6 @@ struct PaywallView: View {
                     Button {
                         Task {
                             do {
-                                try await StoreService.shared.purchase(StoreService.monthlyID)
-                                dismiss()
-                            } catch {
-                                errorMessage = error.localizedDescription
-                            }
-                        }
-                    } label: {
-                        Text(String(localized: "paywall.monthly"))
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                            .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 12))
-                            .foregroundStyle(.white)
-                    }
-
-                    Button {
-                        Task {
-                            do {
                                 try await StoreService.shared.purchase(StoreService.lifetimeID)
                                 dismiss()
                             } catch {
@@ -55,8 +38,8 @@ struct PaywallView: View {
                         Text(String(localized: "paywall.lifetime"))
                             .frame(maxWidth: .infinity)
                             .padding()
-                            .background(Color(.systemGray5), in: RoundedRectangle(cornerRadius: 12))
-                            .foregroundStyle(.primary)
+                            .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 12))
+                            .foregroundStyle(.white)
                     }
                 }
                 .padding(.horizontal)
