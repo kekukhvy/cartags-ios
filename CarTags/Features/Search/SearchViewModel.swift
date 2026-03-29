@@ -26,14 +26,17 @@ final class SearchViewModel {
             return
         }
 
-        isLoading = true
         hasSearched = true
         errorMessage = nil
         showRestrictedResult = false
 
         searchTask?.cancel()
-        searchTask = Task { [weak self] in
-            guard let self else { return }
+        searchTask = Task {
+            try? await Task.sleep(for: .milliseconds(300))
+            guard !Task.isCancelled else { return }
+
+            isLoading = true
+
             do {
                 let code = trimmed.uppercased()
                 let lang = LanguageService.shared.language
@@ -49,13 +52,13 @@ final class SearchViewModel {
                         store.selectedCountries.contains($0.countryCode)
                     }
                     if !allFound.isEmpty && inSelected.isEmpty {
-                        self.showRestrictedResult = true
-                        self.isLoading = false
+                        showRestrictedResult = true
+                        isLoading = false
                         return
                     }
                     if store.requestsToday >= StoreService.maxFreeRequestsPerDay {
-                        self.showRestrictedResult = true
-                        self.isLoading = false
+                        showRestrictedResult = true
+                        isLoading = false
                         return
                     }
                     found = inSelected
@@ -65,13 +68,13 @@ final class SearchViewModel {
                     store.recordRequest()
                 }
 
-                self.results = found
-                self.isLoading = false
+                results = found
+                isLoading = false
             } catch {
                 guard !Task.isCancelled else { return }
-                self.errorMessage = error.localizedDescription
-                self.results = []
-                self.isLoading = false
+                errorMessage = error.localizedDescription
+                results = []
+                isLoading = false
             }
         }
     }

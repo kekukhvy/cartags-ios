@@ -22,9 +22,17 @@ final class StoreService {
     var selectedCountries: [String] = []
     private(set) var requestsToday: Int = 0
 
+    private var updatesTask: Task<Void, Never>?
+
     private init() {
         loadSelectedCountries()
         refreshRequestsToday()
+        updatesTask = Task { [weak self] in
+            for await result in Transaction.updates {
+                guard case .verified = result else { continue }
+                await self?.checkEntitlements()
+            }
+        }
     }
 
     func canSearch(countryCode: String) -> Bool {

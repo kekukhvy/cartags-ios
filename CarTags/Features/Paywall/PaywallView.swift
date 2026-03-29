@@ -69,7 +69,10 @@ struct PaywallView: View {
                     }
                 }
             }
-            .alert(loc("error.title"), isPresented: .constant(errorMessage != nil)) {
+            .alert(loc("error.title"), isPresented: Binding(
+                get: { errorMessage != nil },
+                set: { if !$0 { errorMessage = nil } }
+            )) {
                 Button(loc("button.ok")) { errorMessage = nil }
             } message: {
                 Text(errorMessage ?? "")

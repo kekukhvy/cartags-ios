@@ -11,7 +11,6 @@ struct SettingsView: View {
     @State private var storeService = StoreService.shared
     @State private var isRestoring = false
     @State private var errorMessage: String?
-    @State private var showShareSheet = false
     @State private var showTerms = false
 
     private let languages: [(code: String, label: String, flag: String)] = [
@@ -73,9 +72,7 @@ struct SettingsView: View {
                         Label(loc("settings.rate"), systemImage: "heart")
                     }
 
-                    Button {
-                        showShareSheet = true
-                    } label: {
+                    ShareLink(item: appStoreURL) {
                         Label(loc("settings.share"), systemImage: "square.and.arrow.up")
                     }
                 }
@@ -89,27 +86,17 @@ struct SettingsView: View {
                 }
             }
             .navigationTitle(loc("settings.title"))
-            .alert(loc("error.title"), isPresented: .constant(errorMessage != nil)) {
+            .alert(loc("error.title"), isPresented: Binding(
+                get: { errorMessage != nil },
+                set: { if !$0 { errorMessage = nil } }
+            )) {
                 Button(loc("button.ok")) { errorMessage = nil }
             } message: {
                 Text(errorMessage ?? "")
-            }
-            .sheet(isPresented: $showShareSheet) {
-                ShareSheet(items: [appStoreURL])
             }
             .sheet(isPresented: $showTerms) {
                 TermsView()
             }
         }
     }
-}
-
-private struct ShareSheet: UIViewControllerRepresentable {
-    let items: [Any]
-
-    func makeUIViewController(context: Context) -> UIActivityViewController {
-        UIActivityViewController(activityItems: items, applicationActivities: nil)
-    }
-
-    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
 }

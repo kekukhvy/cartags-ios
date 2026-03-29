@@ -36,7 +36,10 @@ struct CountryPickerView: View {
             } message: {
                 Text(loc("countries.picker.limit"))
             }
-            .alert(loc("error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
+            .alert(loc("error.title"), isPresented: Binding(
+                get: { viewModel.errorMessage != nil },
+                set: { if !$0 { viewModel.errorMessage = nil } }
+            )) {
                 Button(loc("button.ok")) { viewModel.errorMessage = nil }
             } message: {
                 Text(viewModel.errorMessage ?? "")

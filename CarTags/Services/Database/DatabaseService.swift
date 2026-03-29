@@ -8,7 +8,7 @@
 import GRDB
 import Foundation
 
-final class DatabaseService {
+final class DatabaseService: Sendable {
     static let shared = DatabaseService()
     private let db: DatabaseQueue
 
@@ -17,7 +17,9 @@ final class DatabaseService {
             fatalError("cartags.db not found in bundle")
         }
         do {
-            db = try DatabaseQueue(path: dbPath)
+            var config = Configuration()
+            config.readonly = true
+            db = try DatabaseQueue(path: dbPath, configuration: config)
         } catch {
             fatalError("DB error: \(error)")
         }

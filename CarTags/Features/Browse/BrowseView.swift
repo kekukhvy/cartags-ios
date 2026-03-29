@@ -36,7 +36,10 @@ struct BrowseView: View {
             .sheet(isPresented: $showCountryPicker, onDismiss: { viewModel.loadCountries() }) {
                 CountryPickerView()
             }
-            .alert(loc("error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
+            .alert(loc("error.title"), isPresented: Binding(
+                get: { viewModel.errorMessage != nil },
+                set: { if !$0 { viewModel.errorMessage = nil } }
+            )) {
                 Button(loc("button.ok")) { viewModel.errorMessage = nil }
             } message: {
                 Text(viewModel.errorMessage ?? "")
