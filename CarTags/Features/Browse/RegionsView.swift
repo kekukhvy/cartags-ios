@@ -7,13 +7,14 @@ import SwiftUI
 
 struct RegionsView: View {
     @State private var viewModel: RegionsViewModel
+    @State private var selectedRegion: RegionResult?
 
     init(country: CountryItem) {
         _viewModel = State(initialValue: RegionsViewModel(country: country))
     }
 
     var body: some View {
-        SwiftUI.List(viewModel.regions) { region in
+        List(viewModel.regions) { region in
             HStack {
                 Text(flagEmoji(for: region.countryCode))
                     .font(.title2)
@@ -23,11 +24,27 @@ struct RegionsView: View {
                 Text(region.code)
                     .font(.body.bold())
                     .foregroundStyle(.secondary)
+                if region.lat != nil {
+                    Image(systemName: "map")
+                        .foregroundStyle(.tertiary)
+                }
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                if region.lat != nil {
+                    selectedRegion = region
+                }
             }
         }
         .navigationTitle(viewModel.country.name)
         .task { viewModel.loadRegions() }
-        .alert(loc("error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
+        .sheet(item: $selectedRegion) { region in
+            RegionMapView(region: region)
+        }
+        .alert(loc("error.title"), isPresented: Binding(
+            get: { viewModel.errorMessage != nil },
+            set: { if !$0 { viewModel.errorMessage = nil } }
+        )) {
             Button(loc("button.ok")) { viewModel.errorMessage = nil }
         } message: {
             Text(viewModel.errorMessage ?? "")

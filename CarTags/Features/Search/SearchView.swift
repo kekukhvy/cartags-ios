@@ -17,7 +17,10 @@ struct SearchView: View {
                 resultsList
             }
             .navigationTitle(loc("search.title"))
-            .alert(loc("error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
+            .alert(loc("error.title"), isPresented: Binding(
+                get: { viewModel.errorMessage != nil },
+                set: { if !$0 { viewModel.errorMessage = nil } }
+            )) {
                 Button(loc("button.ok")) { viewModel.errorMessage = nil }
             } message: {
                 Text(viewModel.errorMessage ?? "")
@@ -36,14 +39,23 @@ struct SearchView: View {
                     showCountryPicker = true
                 }
             }
+            .onChange(of: viewModel.searchCode) {
+                viewModel.search()
+            }
         }
     }
 
     private var searchBar: some View {
         VStack(alignment: .leading, spacing: 4) {
             HStack {
-                Image(systemName: "magnifyingglass")
-                    .foregroundStyle(.secondary)
+                if viewModel.isLoading {
+                    ProgressView()
+                        .scaleEffect(0.8)
+                } else {
+                    Image(systemName: "magnifyingglass")
+                        .foregroundStyle(.secondary)
+                }
+
                 TextField(loc("search.placeholder"), text: $viewModel.searchCode)
                     .textInputAutocapitalization(.characters)
                     .autocorrectionDisabled()
@@ -70,18 +82,14 @@ struct SearchView: View {
 
     @ViewBuilder
     private var resultsList: some View {
-        if viewModel.isLoading {
-            Spacer()
-            ProgressView()
-            Spacer()
-        } else if viewModel.showRestrictedResult {
+        if viewModel.showRestrictedResult {
             restrictedState
-        } else if viewModel.hasSearched && viewModel.results.isEmpty {
+        } else if viewModel.hasSearched && viewModel.results.isEmpty && !viewModel.isLoading {
             emptyState
         } else if !viewModel.hasSearched {
             placeholderState
         } else {
-            SwiftUI.List(viewModel.results) { region in
+            List(viewModel.results) { region in
                 RegionRow(region: region)
                     .contentShape(Rectangle())
                     .onTapGesture { selectedRegion = region }

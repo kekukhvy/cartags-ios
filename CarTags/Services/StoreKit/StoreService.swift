@@ -14,7 +14,7 @@ final class StoreService {
     static let lifetimeID = "com.cartags.lifetime"
 
     static let maxFreeCountries = 3
-    static let maxFreeRequestsPerDay = 500
+    static let maxFreeRequestsPerDay = 5
 
     private let defaults = UserDefaults.standard
 

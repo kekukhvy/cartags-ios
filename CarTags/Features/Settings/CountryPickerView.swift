@@ -73,6 +73,7 @@ private struct CountryPickerRow: View {
             }
             .padding(.horizontal)
             .padding(.vertical, 12)
+            .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }

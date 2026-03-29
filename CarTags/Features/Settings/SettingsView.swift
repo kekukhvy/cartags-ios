@@ -3,8 +3,8 @@
 //  CarTags
 //
 
-import SwiftUI
 import StoreKit
+import SwiftUI
 
 struct SettingsView: View {
     @State private var languageService = LanguageService.shared
@@ -12,6 +12,7 @@ struct SettingsView: View {
     @State private var isRestoring = false
     @State private var errorMessage: String?
     @State private var showShareSheet = false
+    @State private var showTerms = false
 
     private let languages: [(code: String, label: String, flag: String)] = [
         ("en", "English", "🇬🇧"),
@@ -21,7 +22,7 @@ struct SettingsView: View {
     ]
 
     private let appStoreURL = URL(string: "https://apps.apple.com/app/id0000000000")!
-    private let feedbackURL = URL(string: "mailto:support@cartags.app")!
+    private let feedbackURL = URL(string: "mailto:services.vk@icloud.com")!
 
     var body: some View {
         NavigationStack {
@@ -54,7 +55,9 @@ struct SettingsView: View {
                             isRestoring = false
                         }
                     } label: {
-                        Label(loc("settings.restore_purchases"), systemImage: "arrow.counterclockwise.circle")
+                        Label(
+                            loc("settings.restore_purchases"),
+                            systemImage: "arrow.counterclockwise.circle")
                     }
                     .disabled(isRestoring)
 
@@ -76,6 +79,14 @@ struct SettingsView: View {
                         Label(loc("settings.share"), systemImage: "square.and.arrow.up")
                     }
                 }
+
+                Section {
+                    Button {
+                        showTerms = true
+                    } label: {
+                        Label(loc("settings.terms"), systemImage: "doc.text")
+                    }
+                }
             }
             .navigationTitle(loc("settings.title"))
             .alert(loc("error.title"), isPresented: .constant(errorMessage != nil)) {
@@ -85,6 +96,9 @@ struct SettingsView: View {
             }
             .sheet(isPresented: $showShareSheet) {
                 ShareSheet(items: [appStoreURL])
+            }
+            .sheet(isPresented: $showTerms) {
+                TermsView()
             }
         }
     }

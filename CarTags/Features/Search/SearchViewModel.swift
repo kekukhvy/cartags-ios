@@ -6,6 +6,7 @@
 import Foundation
 import Observation
 
+@MainActor
 @Observable
 final class SearchViewModel {
     var searchCode = ""
@@ -16,48 +17,67 @@ final class SearchViewModel {
     var showPaywall = false
     var showRestrictedResult = false
 
+    private var searchTask: Task<Void, Never>?
+
     func search() {
         let trimmed = searchCode.trimmingCharacters(in: .whitespaces)
-        guard !trimmed.isEmpty else { return }
+        guard !trimmed.isEmpty else {
+            if hasSearched { clear() }
+            return
+        }
 
         isLoading = true
         hasSearched = true
         errorMessage = nil
+        showRestrictedResult = false
 
-        Task {
+        searchTask?.cancel()
+        searchTask = Task { [weak self] in
+            guard let self else { return }
             do {
-                let allFound = try DatabaseService.shared.searchByCode(trimmed.uppercased(), language: LanguageService.shared.language)
+                let code = trimmed.uppercased()
+                let lang = LanguageService.shared.language
+                let allFound = try DatabaseService.shared.searchByCode(code, language: lang)
+
+                guard !Task.isCancelled else { return }
+
+                let store = StoreService.shared
                 var found = allFound
 
-                if !StoreService.shared.isPremium {
-                    let inSelectedCountries = allFound.filter {
-                        StoreService.shared.selectedCountries.contains($0.countryCode)
+                if !store.isPremium {
+                    let inSelected = allFound.filter {
+                        store.selectedCountries.contains($0.countryCode)
                     }
-                    if !allFound.isEmpty && inSelectedCountries.isEmpty {
-                        showRestrictedResult = true
-                        isLoading = false
+                    if !allFound.isEmpty && inSelected.isEmpty {
+                        self.showRestrictedResult = true
+                        self.isLoading = false
                         return
                     }
-                    if StoreService.shared.requestsToday >= StoreService.maxFreeRequestsPerDay {
-                        showRestrictedResult = true
-                        isLoading = false
+                    if store.requestsToday >= StoreService.maxFreeRequestsPerDay {
+                        self.showRestrictedResult = true
+                        self.isLoading = false
                         return
                     }
-                    found = inSelectedCountries
+                    found = inSelected
                 }
 
-                StoreService.shared.recordRequest()
-                results = found
-            } catch {
-                errorMessage = error.localizedDescription
-                results = []
-            }
+                if !found.isEmpty {
+                    store.recordRequest()
+                }
 
-            isLoading = false
+                self.results = found
+                self.isLoading = false
+            } catch {
+                guard !Task.isCancelled else { return }
+                self.errorMessage = error.localizedDescription
+                self.results = []
+                self.isLoading = false
+            }
         }
     }
 
     func clear() {
+        searchTask?.cancel()
         searchCode = ""
         results = []
         hasSearched = false
