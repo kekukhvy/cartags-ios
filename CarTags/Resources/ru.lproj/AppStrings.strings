@@ -1,0 +1,22 @@
+/* Russian */
+"browse.title" = "Обзор";
+"button.done" = "Готово";
+"button.ok" = "ОК";
+"countries.picker.limit" = "Можно выбрать не более 3 стран";
+"countries.picker.title" = "Выберите 3 страны";
+"error.title" = "Ошибка";
+"paywall.lifetime" = "€12 навсегда";
+"paywall.restore" = "Восстановить покупки";
+"paywall.subtitle" = "Все страны · Без ограничений";
+"paywall.title" = "Разблокировать CarTags Pro";
+"search.action" = "Найти";
+"search.empty_prompt" = "Введите код номерного знака";
+"search.latin_notice" = "Вводите только латинские буквы";
+"search.no_results %@" = "Нет результатов для \"%@\"";
+"search.placeholder" = "Введите код (напр. M, WU, KA)";
+"search.restricted.message" = "Разблокируйте все страны и смотрите полные результаты.";
+"search.restricted.subscribe" = "Разблокировать";
+"search.restricted.title" = "Код найден в стране не из вашего бесплатного плана";
+"search.title" = "Поиск";
+"settings.language.section" = "Язык";
+"settings.title" = "Настройки";

@@ -1,0 +1,22 @@
+/* German */
+"browse.title" = "Durchsuchen";
+"button.done" = "Fertig";
+"button.ok" = "OK";
+"countries.picker.limit" = "Sie können bis zu 3 Länder auswählen";
+"countries.picker.title" = "Wähle deine 3 Länder";
+"error.title" = "Fehler";
+"paywall.lifetime" = "€12 einmalig";
+"paywall.restore" = "Käufe wiederherstellen";
+"paywall.subtitle" = "Alle Länder · Unbegrenzte Suchen";
+"paywall.title" = "CarTags Pro freischalten";
+"search.action" = "Los";
+"search.empty_prompt" = "Kennzeichencode eingeben";
+"search.latin_notice" = "Nur lateinische Buchstaben eingeben";
+"search.no_results %@" = "Keine Ergebnisse für \"%@\"";
+"search.placeholder" = "Code eingeben (z.B. M, WU, KA)";
+"search.restricted.message" = "Alle Länder freischalten und vollständige Ergebnisse sehen.";
+"search.restricted.subscribe" = "Freischalten";
+"search.restricted.title" = "Code in einem Land gefunden, das nicht in Ihrem Gratisplan ist";
+"search.title" = "Suche";
+"settings.language.section" = "Sprache";
+"settings.title" = "Einstellungen";

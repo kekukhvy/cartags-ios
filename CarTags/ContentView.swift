@@ -14,11 +14,15 @@ struct ContentView: View {
         TabView {
             SearchView()
                 .tabItem {
-                    Label(String(localized: "search.title"), systemImage: "magnifyingglass")
+                    Label(loc("search.title"), systemImage: "magnifyingglass")
                 }
             BrowseView()
                 .tabItem {
-                    Label(String(localized: "browse.title"), systemImage: "globe")
+                    Label(loc("browse.title"), systemImage: "globe")
+                }
+            SettingsView()
+                .tabItem {
+                    Label(loc("settings.title"), systemImage: "gearshape")
                 }
         }
         #if DEBUG

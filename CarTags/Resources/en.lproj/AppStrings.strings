@@ -1,0 +1,22 @@
+/* English */
+"browse.title" = "Browse";
+"button.done" = "Done";
+"button.ok" = "OK";
+"countries.picker.limit" = "You can select up to 3 countries";
+"countries.picker.title" = "Choose your 3 countries";
+"error.title" = "Error";
+"paywall.lifetime" = "€12 lifetime";
+"paywall.restore" = "Restore purchases";
+"paywall.subtitle" = "All countries · Unlimited searches";
+"paywall.title" = "Unlock CarTags Pro";
+"search.action" = "Go";
+"search.empty_prompt" = "Enter a license plate code";
+"search.latin_notice" = "Use Latin letters only";
+"search.no_results %@" = "No results for \"%@\"";
+"search.placeholder" = "Enter plate code (e.g. M, WU, KA)";
+"search.restricted.message" = "Unlock all countries and see full results.";
+"search.restricted.subscribe" = "Unlock";
+"search.restricted.title" = "Code found in a country not in your free plan";
+"search.title" = "Search";
+"settings.language.section" = "Language";
+"settings.title" = "Settings";

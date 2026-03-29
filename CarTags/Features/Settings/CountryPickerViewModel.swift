@@ -13,7 +13,7 @@ final class CountryPickerViewModel {
 
     func loadCountries() {
         do {
-            countries = try DatabaseService.shared.fetchCountries()
+            countries = try DatabaseService.shared.fetchCountries(language: LanguageService.shared.language)
         } catch {
             errorMessage = error.localizedDescription
         }

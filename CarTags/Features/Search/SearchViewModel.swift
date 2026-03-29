@@ -26,7 +26,7 @@ final class SearchViewModel {
 
         Task {
             do {
-                let allFound = try DatabaseService.shared.searchByCode(trimmed.uppercased())
+                let allFound = try DatabaseService.shared.searchByCode(trimmed.uppercased(), language: LanguageService.shared.language)
                 var found = allFound
 
                 if !StoreService.shared.isPremium {

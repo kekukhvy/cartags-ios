@@ -15,10 +15,10 @@ struct PaywallView: View {
                 Spacer()
 
                 VStack(spacing: 8) {
-                    Text(String(localized: "paywall.title"))
+                    Text(loc("paywall.title"))
                         .font(.title.bold())
                         .multilineTextAlignment(.center)
-                    Text(String(localized: "paywall.subtitle"))
+                    Text(loc("paywall.subtitle"))
                         .font(.body)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -35,7 +35,7 @@ struct PaywallView: View {
                             }
                         }
                     } label: {
-                        Text(String(localized: "paywall.lifetime"))
+                        Text(loc("paywall.lifetime"))
                             .frame(maxWidth: .infinity)
                             .padding()
                             .background(Color.accentColor, in: RoundedRectangle(cornerRadius: 12))
@@ -56,7 +56,7 @@ struct PaywallView: View {
                         }
                     }
                 } label: {
-                    Text(String(localized: "paywall.restore"))
+                    Text(loc("paywall.restore"))
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
@@ -69,8 +69,8 @@ struct PaywallView: View {
                     }
                 }
             }
-            .alert(String(localized: "error.title"), isPresented: .constant(errorMessage != nil)) {
-                Button(String(localized: "button.ok")) { errorMessage = nil }
+            .alert(loc("error.title"), isPresented: .constant(errorMessage != nil)) {
+                Button(loc("button.ok")) { errorMessage = nil }
             } message: {
                 Text(errorMessage ?? "")
             }

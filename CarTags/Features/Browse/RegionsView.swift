@@ -27,8 +27,8 @@ struct RegionsView: View {
         }
         .navigationTitle(viewModel.country.name)
         .task { viewModel.loadRegions() }
-        .alert(String(localized: "error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
-            Button(String(localized: "button.ok")) { viewModel.errorMessage = nil }
+        .alert(loc("error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
+            Button(loc("button.ok")) { viewModel.errorMessage = nil }
         } message: {
             Text(viewModel.errorMessage ?? "")
         }

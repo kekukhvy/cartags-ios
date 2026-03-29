@@ -18,7 +18,7 @@ final class RegionsViewModel {
 
     func loadRegions() {
         do {
-            regions = try DatabaseService.shared.fetchRegions(countryId: country.id)
+            regions = try DatabaseService.shared.fetchRegions(countryId: country.id, language: LanguageService.shared.language)
         } catch {
             errorMessage = error.localizedDescription
         }

@@ -15,16 +15,16 @@ struct SearchView: View {
                 searchBar
                 resultsList
             }
-            .navigationTitle(String(localized: "search.title"))
+            .navigationTitle(loc("search.title"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(String(localized: "search.action")) { viewModel.search() }
+                    Button(loc("search.action")) { viewModel.search() }
                         .bold()
                         .disabled(viewModel.searchCode.isEmpty || viewModel.isLoading)
                 }
             }
-            .alert(String(localized: "error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button(String(localized: "button.ok")) { viewModel.errorMessage = nil }
+            .alert(loc("error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button(loc("button.ok")) { viewModel.errorMessage = nil }
             } message: {
                 Text(viewModel.errorMessage ?? "")
             }
@@ -43,26 +43,30 @@ struct SearchView: View {
     }
 
     private var searchBar: some View {
-        HStack {
-            Image(systemName: "magnifyingglass")
-                .foregroundStyle(.secondary)
-            TextField(
-                String(localized: "search.placeholder"),
-                text: $viewModel.searchCode
-            )
-            .textInputAutocapitalization(.characters)
-            .autocorrectionDisabled()
-            .onSubmit { viewModel.search() }
+        VStack(alignment: .leading, spacing: 4) {
+            HStack {
+                Image(systemName: "magnifyingglass")
+                    .foregroundStyle(.secondary)
+                TextField(loc("search.placeholder"), text: $viewModel.searchCode)
+                    .textInputAutocapitalization(.characters)
+                    .autocorrectionDisabled()
+                    .onSubmit { viewModel.search() }
 
-            if !viewModel.searchCode.isEmpty {
-                Button { viewModel.clear() } label: {
-                    Image(systemName: "xmark.circle.fill")
-                        .foregroundStyle(.secondary)
+                if !viewModel.searchCode.isEmpty {
+                    Button { viewModel.clear() } label: {
+                        Image(systemName: "xmark.circle.fill")
+                            .foregroundStyle(.secondary)
+                    }
                 }
             }
+            .padding(10)
+            .background(Color(.systemGray6), in: RoundedRectangle(cornerRadius: 10))
+
+            Text(loc("search.latin_notice"))
+                .font(.caption2)
+                .foregroundStyle(.secondary)
+                .padding(.horizontal, 4)
         }
-        .padding(10)
-        .background(Color(.systemGray6), in: RoundedRectangle(cornerRadius: 10))
         .padding()
     }
 
@@ -92,15 +96,15 @@ struct SearchView: View {
             Image(systemName: "lock.circle")
                 .font(.system(size: 50))
                 .foregroundStyle(.secondary)
-            Text(String(localized: "search.restricted.title"))
+            Text(loc("search.restricted.title"))
                 .font(.headline)
                 .multilineTextAlignment(.center)
-            Text(String(localized: "search.restricted.message"))
+            Text(loc("search.restricted.message"))
                 .font(.subheadline)
                 .foregroundStyle(.secondary)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
-            Button(String(localized: "search.restricted.subscribe")) {
+            Button(loc("search.restricted.subscribe")) {
                 viewModel.showPaywall = true
             }
             .buttonStyle(.borderedProminent)
@@ -114,7 +118,7 @@ struct SearchView: View {
             Image(systemName: "magnifyingglass")
                 .font(.system(size: 40))
                 .foregroundStyle(.secondary)
-            Text(String(format: String(localized: "search.no_results %@"), viewModel.searchCode))
+            Text(String(format: loc("search.no_results %@"), viewModel.searchCode))
                 .foregroundStyle(.secondary)
             Spacer()
         }
@@ -126,7 +130,7 @@ struct SearchView: View {
             Image(systemName: "car.rear.road.lane")
                 .font(.system(size: 50))
                 .foregroundStyle(.secondary)
-            Text(String(localized: "search.empty_prompt"))
+            Text(loc("search.empty_prompt"))
                 .foregroundStyle(.secondary)
             Spacer()
         }

@@ -13,7 +13,7 @@ final class BrowseViewModel {
 
     func loadCountries() {
         do {
-            let all = try DatabaseService.shared.fetchCountries()
+            let all = try DatabaseService.shared.fetchCountries(language: LanguageService.shared.language)
             if StoreService.shared.isPremium {
                 countries = all
             } else {

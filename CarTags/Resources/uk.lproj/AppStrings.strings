@@ -1,0 +1,22 @@
+/* Ukrainian */
+"browse.title" = "Перегляд";
+"button.done" = "Готово";
+"button.ok" = "ОК";
+"countries.picker.limit" = "Можна обрати не більше 3 країн";
+"countries.picker.title" = "Оберіть 3 країни";
+"error.title" = "Помилка";
+"paywall.lifetime" = "€12 назавжди";
+"paywall.restore" = "Відновити покупки";
+"paywall.subtitle" = "Всі країни · Без обмежень";
+"paywall.title" = "Розблокувати CarTags Pro";
+"search.action" = "Знайти";
+"search.empty_prompt" = "Введіть код номерного знака";
+"search.latin_notice" = "Вводьте лише латинські літери";
+"search.no_results %@" = "Немає результатів для \"%@\"";
+"search.placeholder" = "Введіть код (напр. M, WU, KA)";
+"search.restricted.message" = "Розблокуйте всі країни і дивіться повні результати.";
+"search.restricted.subscribe" = "Розблокувати";
+"search.restricted.title" = "Код знайдено в країні не з вашого безкоштовного плану";
+"search.title" = "Пошук";
+"settings.language.section" = "Мова";
+"settings.title" = "Налаштування";

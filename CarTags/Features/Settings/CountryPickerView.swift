@@ -23,20 +23,20 @@ struct CountryPickerView: View {
                     }
                 }
             }
-            .navigationTitle(String(localized: "countries.picker.title"))
+            .navigationTitle(loc("countries.picker.title"))
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(String(localized: "button.done")) { dismiss() }
+                    Button(loc("button.done")) { dismiss() }
                 }
             }
             .task { viewModel.loadCountries() }
-            .alert(String(localized: "error.title"), isPresented: $showLimitAlert) {
-                Button(String(localized: "button.ok")) {}
+            .alert(loc("error.title"), isPresented: $showLimitAlert) {
+                Button(loc("button.ok")) {}
             } message: {
-                Text(String(localized: "countries.picker.limit"))
+                Text(loc("countries.picker.limit"))
             }
-            .alert(String(localized: "error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
-                Button(String(localized: "button.ok")) { viewModel.errorMessage = nil }
+            .alert(loc("error.title"), isPresented: .constant(viewModel.errorMessage != nil)) {
+                Button(loc("button.ok")) { viewModel.errorMessage = nil }
             } message: {
                 Text(viewModel.errorMessage ?? "")
             }
