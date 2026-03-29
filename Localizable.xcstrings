@@ -280,25 +280,25 @@
         "de" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "€12 einmalig"
+            "value" : "€4.99 einmalig"
           }
         },
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "€12 lifetime"
+            "value" : "€4.99 lifetime"
           }
         },
         "ru" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "€12 навсегда"
+            "value" : "€4.99 навсегда"
           }
         },
         "uk" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "€12 назавжди"
+            "value" : "€4.99 назавжди"
           }
         }
       }
